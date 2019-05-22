@@ -910,7 +910,7 @@ function renderCell(col, celldata, cellid) {
 		str += "<div style='font-weight:bold'>" + celldata.firstname + " " + celldata.lastname + "</div>";
 		str += "<div>" + celldata.username + " / " + celldata.class + "</div>";
 		str += "<div>" + hideSSN(celldata.ssn) + "</div>";
-		
+		str += "<div>" + celldata.setTeacher + "</div>";
 		str += "</div>";
 		return str;
 
