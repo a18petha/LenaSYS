@@ -834,6 +834,15 @@ function renderCell(col, celldata, cellid) {
 		} 
 	}
 	}	
+	if(filterList["showTeacher"]){
+		// First column (Fname/Lname/SSN)
+	if (col == "setTeacher") {
+		str = "<div class='resultTableCell resultTableNormal'>";
+		str += "<div class='resultTableText'>";
+		str += "<div style='font-weight:bold'>" + celldata.setTeacher + " " + "</div>";
+		str += "</div>";
+		return str;
+	}
 	
 	else if(filterList["passedDeadline"]){
 				// First column (Fname/Lname/SSN)
@@ -847,7 +856,7 @@ function renderCell(col, celldata, cellid) {
 
 	
 			}
-		else if(filterList["showTeacher"]){
+		 if(filterList["showTeacher"]){
 				// First column (Fname/Lname/SSN)
 			if (col == "setTeacher") {
 				str = "<div class='resultTableCell resultTableNormal'>";
