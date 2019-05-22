@@ -39,7 +39,7 @@ $log_uuid = getOP('log_uuid');
 
 $filo = print_r($_FILES, true);
 $info = $cid . " " . $vers . " " . $kind . " " . $link . " " . $selectedfile . " " . $error . " " . $filo;
-logServiceEvent($log_uuid, EventTypes::ServiceServerStart, "filerecieve.php", $userid, $info);
+logServiceEvent($log_uuid, EventTypes::ServiceServerStart, "filereceive.php", $userid, $info);
 
 //  Handle files! One by one  -- if all is ok add file name to database
 //  login for user is successful & has either write access or is superuser					
@@ -246,22 +246,28 @@ if ($storefile) {
     $error = true;
 }
 
-logServiceEvent($log_uuid, EventTypes::ServiceServerEnd, "filerecrive.php", $userid, $info);
+logServiceEvent($log_uuid, EventTypes::ServiceServerEnd, "filereceive.php", $userid, $info);
 
 if (!$error) {
+    $_SESSION['fileError'] = null;
+    echo "<meta http-equiv='refresh' content='0;URL=fileed.php?cid=" . $cid . "&coursevers=" . $vers . "' />";  //update page, redirect to "fileed.php" with the variables sent for course id and version id
+} 
+else {
+    // session_start();
+    $errorArray = "BIG ERROR";
+    $_SESSION['fileError'] = $errorArray;
     echo "<meta http-equiv='refresh' content='0;URL=fileed.php?cid=" . $cid . "&coursevers=" . $vers . "' />";  //update page, redirect to "fileed.php" with the variables sent for course id and version id
 }
-
 ?>
 <html>
 <head>
 </head>
 <body>
 <?php
-if (!$error) {
+// if (!$error) {
 
-    echo "<script>window.location.replace('fileed.php?cid=" . $cid . "&coursevers=" . $vers . "');</script>"; //update page, redirect to "fileed.php" with the variables sent for course id and version id
-}
+//     echo "<script>window.location.replace('fileed.php?cid=" . $cid . "&coursevers=" . $vers . "');</script>"; //update page, redirect to "fileed.php" with the variables sent for course id and version id
+// }
 ?>
 </body>
 </html>

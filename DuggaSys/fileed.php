@@ -216,5 +216,15 @@ pdoConnect();
     <p class="confirmationText" id="editedFile" >Hej</p>
     <button class="confirmationButton" onclick="closeConfirmation()">Ok</button>
 </div>
+
+<?php
+    if($_SESSION['fileError'] != null){
+        $fileError = $_SESSION['fileError'];
+        echo "<div style='position: fixed; left: 30%; top: 40%;z-index: 7000;background: red;'>";
+            echo "<h1>".$fileError."</h1>";
+        echo "</div>";
+    }
+?>
+
 </body>
 </html>
