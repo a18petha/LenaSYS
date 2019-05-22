@@ -852,7 +852,6 @@ function renderCell(col, celldata, cellid) {
 				str = "<div class='resultTableCell resultTableNormal'>";
 				str += "<div class='resultTableText'>";
 				str += "<div style='font-weight:bold'>" + celldata.setTeacher + "</div>";
-				str += "<div>" + celldata.class + "</div>";
 				str += "</div>";
 				return str;
 			}
