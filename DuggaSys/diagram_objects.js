@@ -1399,23 +1399,25 @@ function Symbol(kindOfSymbol) {
     this.drawUMLLine = function(x1, y1, x2, y2) {
         //Checks if there is cardinality set on this object
         if(this.cardinality[0].value != "" && this.cardinality[0].value != null) {
+            var offset = 15 * diagram.getZoomValue();
+
             //Updates x and y position
             ctx.fillStyle = '#000';
             if(this.cardinality[0].symbolKind == symbolKind.uml) {
-                var valX = x1 > x2 ? x1-20 : x1+20;
-                var valY = y1 > y2 ? y1-15 : y1+15;
-                var valY2 = y2 > y1 ? y2-15 : y2+15;
-                var valX2 = x2 > x1 ? x2-20 : x2+20;
+                var valX = x1 > x2 ? x1-offset : x1+offset;
+                var valY = y1 > y2 ? y1-offset : y1+offset;
+                var valY2 = y2 > y1 ? y2-offset : y2+offset;
+                var valX2 = x2 > x1 ? x2-offset : x2+offset;
                 if (this.isRecursiveLine) {
                     let dir = this.recursiveLineExtent / Math.abs(this.recursiveLineExtent);
                     if (x1 == x2) {
-                        valX = valX2 = x1 + 20 * dir;
-                        valY = y1 - 13;
-                        valY2 = y2 - 13;
+                        valX = valX2 = x1 + offset * dir;
+                        valY = y1 - offset;
+                        valY2 = y2 - offset;
                     }else {
-                        valY = valY2 = y1 + 20 * dir;
-                        valX = x1 - 17;
-                        valX2 = x2 - 17;
+                        valY = valY2 = y1 + offset * dir;
+                        valX = x1 - offset;
+                        valX2 = x2 - offset;
                     }
                 }
                 ctx.fillText(this.cardinality[0].value, valX, valY);
@@ -1699,6 +1701,23 @@ function Symbol(kindOfSymbol) {
         }
     }
 
+    this.getClosestObject = function(cardinality, connectedObjects){
+        var obj0 = connectedObjects[0].corners();
+        var obj1 = connectedObjects[1].corners();
+
+        var obj0Diff = (Math.pow(cardinality.x, 2) - (Math.pow(obj0.tl.x, 2) + Math.pow(obj0.br.x, 2)) / 2) +
+                       (Math.pow(cardinality.y,2) - (Math.pow(obj0.tl.y, 2) + Math.pow(obj0.br.y, 2)) / 2);
+
+        var obj1Diff = (Math.pow(cardinality.x, 2) - (Math.pow(obj1.tl.x, 2) + Math.pow(obj1.br.x, 2)) / 2) +
+                       (Math.pow(cardinality.y,2) - (Math.pow(obj1.tl.y, 2) + Math.pow(obj1.br.y, 2)) / 2);
+
+        if(obj0Diff < obj1Diff){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     //---------------------------------------------------------------
     // moveCardinality: Moves the value of the cardinality to avoid overlap with line
     //---------------------------------------------------------------
@@ -1708,6 +1727,12 @@ function Symbol(kindOfSymbol) {
 
         const cardinality = this.cardinality[0];
 
+        console.log(boxCorners)
+        var connectedObjects = this.getConnectedObjects();
+        var offset = 10 * diagram.getZoomValue();
+
+        var index = this.getClosestObject(cardinality, connectedObjects);
+
         // Correct corner e.g. top left, top right, bottom left or bottom right
         let correctCorner = getCorrectCorner(cardinality,
     										boxCorners.tl.x,
@@ -1715,16 +1740,18 @@ function Symbol(kindOfSymbol) {
     										boxCorners.br.x,
     										boxCorners.br.y);
 
-        // Find which box the cardinality number is connected to
-        for(var i = 0; i < diagram.length; i++) {
-            dtlx = diagram[i].corners().tl.x;
-            dtly = diagram[i].corners().tl.y;
-            dbrx = diagram[i].corners().br.x;
-            dbry = diagram[i].corners().br.y;
+        if(connectedObjects.length > 1) {
+            // Assume that first object in array is parentBox
+            cardinality.parentBox = connectedObjects[0];
 
+            dtlx = connectedObjects[1].corners().tl.x;
+            dtly = connectedObjects[1].corners().tl.y;
+            dbrx = connectedObjects[1].corners().br.x;
+            dbry = connectedObjects[1].corners().br.y;
+
+            // Check if other object in array is parentBox otherwise use the first one
             if(correctCorner.x == dtlx || correctCorner.x == dbrx || correctCorner.y == dtly || correctCorner.y == dbry) {
-                cardinality.parentBox = diagram[i];
-                break;
+                cardinality.parentBox = connectedObjects[1];
             }
         }
 
@@ -1733,6 +1760,7 @@ function Symbol(kindOfSymbol) {
 		    if(cardinality.parentBox != null) {
 		        var correctBox = getCorners(points[cardinality.parentBox.topLeft], points[cardinality.parentBox.bottomRight]);
 		        // Determine on which side of the box the cardinality should be placed
+
 		        if(correctBox.tl.x < x1 && correctBox.br.x > x1) {
 		            cardinality.axis = "X";
 		        }
@@ -1742,21 +1770,22 @@ function Symbol(kindOfSymbol) {
 		    }
 
 		    // Move the value from the line
-		    cardinality.x = x1 > x2 ? x1-13 : x1+13;
-		    cardinality.y = y1 > y2 ? y1-15 : y1+15;
+		    cardinality.x = x1 > x2 ? x1-offset : x1+offset;
+		    cardinality.y = y1 > y2 ? y1-offset : y1+offset;
 
 		    // Change side of the line to avoid overlap
 		    if(cardinality.axis == "X") {
-		        cardinality.x = x1 > x2 ? x1+10 : x1-10;
+		        cardinality.x = x1 > x2 ? x1+offset : x1-offset;
 		    }
 		    else if(cardinality.axis == "Y") {
-		        cardinality.y = y1 > y2 ? y1+10 : y1-10;
+		        cardinality.y = y1 > y2 ? y1+offset : y1-offset;
 		    }
 	    }
 	    else if(side == "IncorrectSide") {
 		    if(cardinality.parentBox != null) {
 		        var correctBox = getCorners(points[this.cardinality[0].parentBox.topLeft], points[this.cardinality[0].parentBox.bottomRight]);
-		        // Determine on which side of the box the cardinality should be placed
+		        
+                // Determine on which side of the box the cardinality should be placed
 		        if(correctBox.tl.x < x2 && correctBox.br.x > x2) {
 		            cardinality.axis = "X";
 		        }
@@ -1766,15 +1795,15 @@ function Symbol(kindOfSymbol) {
 		    }
 
 		    // Move the value from the line
-		    cardinality.x = x2 > x1 ? x2-15 : x2+15;
-		    cardinality.y = y2 > y1 ? y2-15 : y2+15;
+		    cardinality.x = x2 > x1 ? x2-offset : x2+offset;
+		    cardinality.y = y2 > y1 ? y2-offset : y2+offset;
 
 		    // Change side of the line to avoid overlap
 		    if(cardinality.axis == "X") {
-		        cardinality.x = x2 > x1 ? x2+15 : x2-15;
+		        cardinality.x = x2 > x1 ? x2+offset : x2-offset;
 		    }
 		    else if(cardinality.axis == "Y") {
-		        cardinality.y = y2 > y1 ? y2+15 : y2-15;
+		        cardinality.y = y2 > y1 ? y2+offset : y2-offset;
 		    }
 	    }
     }
@@ -2187,24 +2216,25 @@ function pointToLineDistance(P1, P2, x, y) {
 //----------------------------------------------------------------------
 function getCorrectCorner(cardinality, ltlx, ltly, lbrx, lbry) {
 		let cornerX, cornerY;
+        var offset = 20 * diagram.getZoomValue();
 
 		// Top left corner
-        if(Math.abs(cardinality.x - ltlx) + Math.abs(cardinality.y - ltly) == 20) {
+        if(Math.abs(cardinality.x - ltlx) + Math.abs(cardinality.y - ltly) == offset) {
             cornerX = ltlx;
             cornerY = ltly;
         }
         // Top right corner
-        else if(Math.abs(cardinality.x - lbrx) + Math.abs(cardinality.y - ltly) == 20) {
+        else if(Math.abs(cardinality.x - lbrx) + Math.abs(cardinality.y - ltly) == offset) {
             cornerX = lbrx;
             cornerY = ltly;
         }
         // Bottom left corner
-        else if(Math.abs(cardinality.x - ltlx) + Math.abs(cardinality.y - lbry) == 20) {
+        else if(Math.abs(cardinality.x - ltlx) + Math.abs(cardinality.y - lbry) == offset) {
             cornerX = ltlx;
             cornerY = lbry;
         }
         // Bottom right corner
-        else if(Math.abs(cardinality.x - lbrx) + Math.abs(cardinality.y - lbry) == 20) {
+        else if(Math.abs(cardinality.x - lbrx) + Math.abs(cardinality.y - lbry) == offset) {
             cornerX = lbrx;
             cornerY = lbry;
         }
