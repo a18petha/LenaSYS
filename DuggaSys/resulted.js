@@ -843,7 +843,20 @@ function renderCell(col, celldata, cellid) {
 				str += "<div>" + celldata.username + " / " + celldata.class + "</div>";
 				str += "</div>";
 				return str;
-			}else if (filterGrade === "none" || celldata.grade === filterGrade) {
+
+	
+			}
+		else if(filterList["showTeacher"]){
+				// First column (Fname/Lname/SSN)
+			if (col == "setTeacher") {
+				str = "<div class='resultTableCell resultTableNormal'>";
+				str += "<div class='resultTableText'>";
+				str += "<div style='font-weight:bold'>" + celldata.setTeacher + "</div>";
+				str += "<div>" + celldata.class + "</div>";
+				str += "</div>";
+				return str;
+			}
+			else if (filterGrade === "none" || celldata.grade === filterGrade) {
 				// color based on pass,fail,pending,assigned,unassigned
 				str = "<div style='padding:10px;' class='resultTableCell ";
 				if (celldata.kind != 4 && celldata.needMarking == true && celldata.submitted > celldata.deadline) {
