@@ -832,6 +832,7 @@ function renderCell(col, celldata, cellid) {
 			}
 			return str;	
 		} 
+	}
 	}	
 	
 	else if(filterList["passedDeadline"]){
@@ -851,7 +852,7 @@ function renderCell(col, celldata, cellid) {
 			if (col == "setTeacher") {
 				str = "<div class='resultTableCell resultTableNormal'>";
 				str += "<div class='resultTableText'>";
-				str += "<div style='font-weight:bold'>" + celldata.setTeacher + "</div>";
+				str += "<div style='font-weight:bold'>" + celldata.setTeacher + " " + "</div>";
 				str += "</div>";
 				return str;
 			}
