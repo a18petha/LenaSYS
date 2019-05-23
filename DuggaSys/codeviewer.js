@@ -39,6 +39,7 @@ var querystring = parseGet();
 var courseid;
 var exampleid;
 var cvers;
+var templateid;
 
 /********************************************************************************
 
@@ -115,7 +116,7 @@ function returned(data) {
 	}
 
 	// User can choose template if no template has been chosen and the user has write access.
-	if ((retData['templateid'] == 0)) {
+	if ((templateid == 0)) {
 		if (retData['writeaccess'] == "w") {
 			alert("A template has not been chosen for this example. Please choose one.");
 			$("#chooseTemplateContainer").css("display", "flex");
@@ -510,6 +511,8 @@ function displayEditContent(boxid) {
 //----------------------------------------------------------------------------------
 
 function changeDirectory(kind) {
+	templateid = retData['templateid'];
+	console.log(templateid);
 	var dir;
 	var str = "";
 
@@ -1973,7 +1976,7 @@ function maximizeBoxes(boxid) {
 	var boxid = boxid;
 	var parentDiv = document.getElementById("div2");
 	var boxValArray = initResizableBoxValues(parentDiv);
-	var templateid = retData['templateid'];
+	templateid = retData['templateid'];
 
 	getLocalStorageProperties(boxValArray);
 	hideCopyButtons(templateid, boxid);
@@ -2285,7 +2288,7 @@ function maximizeBoxes(boxid) {
 
 //hide maximizeButton
 function hideMaximizeAndResetButton() {
-	var templateid = retData['templateid'];
+	templateid = retData['templateid'];
 	if (templateid > 8) {
 		$('.maximizebtn').hide();
 		$('.resetbtn').hide();
