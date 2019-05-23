@@ -299,9 +299,9 @@ if($gradesys=="UNK") $gradesys=0;
 						}
 					}
 				}else if(strcmp($opt,"UPDATEDEADLINE")===0){
-					$deadlinequery = $pdo->prepare("UPDATE quiz SET deadline=:deadline WHERE id=:link;");
+					$deadlinequery = $pdo->prepare("UPDATE quiz SET deadline=:deadline WHERE id=:lid;");
 					$deadlinequery->bindParam(':deadline',$deadline);
-					$deadlinequery->bindParam(':link',$link);
+					$deadlinequery->bindParam(':lid',$lid);
 
 					if(!$deadlinequery->execute()){
 						$error=$deadlinequery->errorInfo();
