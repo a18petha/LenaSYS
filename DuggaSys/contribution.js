@@ -930,7 +930,8 @@ function renderCellForghContibTable(col, celldata, cellid) {
      if (obj.issues.length > 0 || obj.comments.length > 0 || obj.events.length > 0 || obj.comments.length > 0) {
        str += "<div class='githubContribution'>";
        if(obj.commits.length > 0){
-         str += "<div id='ghCommits' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.commits.length + " commit(s).</span></div>";
+         str += "<div id='ghCommits' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.commits.length + " commit(s).</span>";
+         str += "</div>";
          str += "<div id='ghCommits"+rowNr+"' style='pointer-events:auto' class='contribcontent'>";
          for (j = 0; j < obj.commits.length; j++) {
              var message = obj.commits[j].message;
