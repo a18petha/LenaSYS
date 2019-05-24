@@ -3197,7 +3197,7 @@ span.arrow {
 }
 
 .contribcontentToggle {
-  height: 200px;
+  height: auto;
 }
 
 .contrib {
