@@ -3169,6 +3169,11 @@ span.arrow {
 }
 
 .contribheading {
+  webkit-transition: height 0.2s cubic-bezier(0, 1.4, 0.8,1 );
+ -moz-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
+ -ms-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
+ -o-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
+  transition: height 0.2s cubic-bezier(0,1.4, 0.8, 1);
   background: #FFF8A5;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
