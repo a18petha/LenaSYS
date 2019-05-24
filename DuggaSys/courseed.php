@@ -69,7 +69,7 @@ $noup="NONE";
     		</div>
     		<div style='padding:5px;'>
     			<input type='hidden' id='cid' value='Toddler' />
-    			<div class='inputwrapper'><span>Course Name:</span><input class='textinput' type='text' required patten='[a-zA-z]*' id='ncoursename' placeholder='Course Name'/></div>
+    			<div class='inputwrapper'><span>Course Name:</span><input class='textinput' type='text' required pattern='[a-zA-z]*' id='ncoursename' placeholder='Course Name'/></div>
     			<div class='inputwrapper'><span>Course code:</span><input class='textinput' type='text' id='ncoursecode' placeholder='Course Code' /></div>
     		</div>
     		<div style='padding:5px;'>
