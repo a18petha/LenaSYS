@@ -1109,7 +1109,7 @@ function toggleContributionTable(element){
       }
       status = togglevalues[tableCellId].events;
     }
-    showMoreContribContent(document.getElementById("ghCommits0"),status);
+    showMoreContribContent("ghCommits0",status);
     localStorage.setItem('contribToggleArr', JSON.stringify(togglevalues)); //save the changed values to localStorage.
   }else{
 
