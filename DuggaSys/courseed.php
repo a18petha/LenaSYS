@@ -73,7 +73,7 @@ $noup="NONE";
     			<div class='inputwrapper'><span>Course code:</span><input class='textinput' type='text' id='ncoursecode' placeholder='Course Code' /></div>
     		</div>
     		<div style='padding:5px;'>
-    			<input class='submit-button' type='button' pattern="[A-Za-z0-9]+" value='Create' title='Create course' onclick='createNewCourse();' />
+    			<input class='submit-button' type='button' value='Create' title='Create course' onclick='createNewCourse(), cValidate();' />
     		</div>
       </div>
 	</div>
