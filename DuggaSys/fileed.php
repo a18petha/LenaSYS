@@ -220,8 +220,8 @@ pdoConnect();
 <?php
     if($_SESSION['fileError'] != null){
         $fileError = $_SESSION['fileError'];
-        echo "<div style='position: fixed; left: 30%; top: 40%;z-index: 7000;background: red;'>";
-            echo "<h1>".$fileError."</h1>";
+        echo "<div style='position: fixed; left: 50%; width: 150px;top: 50%;z-index: 7000;background: white; transform: translate(-50%, -50%)'>";
+            print_r($fileError);
         echo "</div>";
     }
 ?>

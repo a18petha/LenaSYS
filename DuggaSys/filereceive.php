@@ -255,7 +255,7 @@ if (!$error) {
 else {
     // session_start();
     $errorArray = "BIG ERROR";
-    $_SESSION['fileError'] = $errorArray;
+    $_SESSION['fileError'] = $swizzled;
     echo "<meta http-equiv='refresh' content='0;URL=fileed.php?cid=" . $cid . "&coursevers=" . $vers . "' />";  //update page, redirect to "fileed.php" with the variables sent for course id and version id
 }
 ?>
