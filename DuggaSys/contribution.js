@@ -932,15 +932,16 @@ function renderCellForghContibTable(col, celldata, cellid) {
        if(obj.commits.length > 0){
          str += "<div id='ghCommits' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.commits.length + " commit(s).</span></div>";
          str += "<div id='ghCommits"+rowNr+"' style='pointer-events:auto' class='contribcontent'>";
-           for (j = 0; j < obj.commits.length; j++) {
+         for (j = 0; j < obj.commits.length; j++) {
              var message = obj.commits[j].message;
              var hash = obj.commits[j].cid;
              str += "<span><a onclick='keepContribContentOpen(event)' target='_blank' href='https://github.com/HGustavs/LenaSYS/commit/" + hash + "'>" + message + "</a></span>";
-           }
-           str += "</div>";
+         }
+         str += "</div>";
        }
        if (obj.issues.length > 0) {
           str += "<div id='ghIssues' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Created " + obj.issues.length + " issue(s).</span>";
+          str += "</div>";
           str += "<div id='ghIssues"+rowNr+"' class='contribcontent'>";
           for (j = 0; j < obj.issues.length; j++) {
             var issue = obj.issues[j];
@@ -948,17 +949,16 @@ function renderCellForghContibTable(col, celldata, cellid) {
             str += "<span><a onclick='keepContribContentOpen(event)' target='_blank' href='https://github.com/HGustavs/LenaSYS/issues/" + issue.issueno.substr(1) + "'>" + issuestr + "</a></span>";
           }
           str += "</div>";
-          str += "</div>";
        }
        if (obj.comments.length > 0) {
           str += "<div id='ghComments' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.comments.length + " comment(s).</span>";
+          str += "</div>";
           str += "<div id='ghComments"+rowNr+"' class='contribcontent'>";
             for (j = 0; j < obj.comments.length; j++) {
               var comment = obj.comments[j];
               var issuestr = comment.issueno + " " + comment.content;
               str += "<span><a onclick='keepContribContentOpen(event)' target='_blank' href='https://github.com/HGustavs/LenaSYS/issues/" + comment.issueno.substr(1) + "'>" + issuestr + "</a></span>";
             }
-          str += "</div>";
           str += "</div>";
        }
        if (obj.events.length > 0) {
@@ -967,12 +967,12 @@ function renderCellForghContibTable(col, celldata, cellid) {
            totalAmountEvents += parseInt(obj.events[j].cnt);
          }
          str += "<div id='ghEvents' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Performed " + totalAmountEvents + " event(s).</span>";
+         str += "</div>";
          str += "<div id='ghEvents"+rowNr+"' class='contribcontent'>";
          for (var j = 0; j < obj.events.length; j++) {
            var eve = obj.events[j];
            str += "<span>" + eve.kind + " " + eve.cnt + "</span>";
          }
-         str += "</div>";
          str += "</div>";
        }
      }
