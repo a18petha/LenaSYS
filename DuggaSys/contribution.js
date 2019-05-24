@@ -930,14 +930,13 @@ function renderCellForghContibTable(col, celldata, cellid) {
      if (obj.issues.length > 0 || obj.comments.length > 0 || obj.events.length > 0 || obj.comments.length > 0) {
        str += "<div class='githubContribution'>";
        if(obj.commits.length > 0){
-         str += "<div id='ghCommits' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.commits.length + " commit(s).</span>";
+         str += "<div id='ghCommits' onclick='toggleContributionTable(this)' class='contribheading' style='cursor:pointer;'><span>Made " + obj.commits.length + " commit(s).</span></div>";
          str += "<div id='ghCommits"+rowNr+"' style='pointer-events:auto' class='contribcontent'>";
            for (j = 0; j < obj.commits.length; j++) {
              var message = obj.commits[j].message;
              var hash = obj.commits[j].cid;
              str += "<span><a onclick='keepContribContentOpen(event)' target='_blank' href='https://github.com/HGustavs/LenaSYS/commit/" + hash + "'>" + message + "</a></span>";
            }
-           str += "</div>";
            str += "</div>";
        }
        if (obj.issues.length > 0) {
@@ -1119,9 +1118,9 @@ function toggleContributionTable(element){
 //Hide or show more content.
 function showMoreContribContent(id,status){
     if(status == 1){
-      document.getElementById(id).classList.add('contribcontentToggle')
+      document.getElementById(id).classList.add('contribcontentToggle');
     }else{
-      document.getElementById(id).classList.remove('contribcontentToggle')
+      document.getElementById(id).classList.remove('contribcontentToggle');
     }
 }
 
