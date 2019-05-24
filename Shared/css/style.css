@@ -3169,7 +3169,7 @@ span.arrow {
 }
 
 .contribheading {
-  webkit-transition: height 0.2s cubic-bezier(0, 1.4, 0.8,1 );
+  -webkit-transition: height 0.2s cubic-bezier(0, 1.4, 0.8,1 );
  -moz-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
  -ms-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
  -o-transition: height 0.2s cubic-bezier(0, 1.4, 0.8, 1);
