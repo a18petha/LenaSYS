@@ -63,12 +63,6 @@ function newCourse()
 	//$("#overlay").css("display", "block");
 }
 
-function cValidation(){
-	if (input[1].length > 4) {
-		alert('Input exceeded max length for Email (256)');
-		return false;
-}
-
 function createNewCourse()
 {
 	var coursename = $("#ncoursename").val();
