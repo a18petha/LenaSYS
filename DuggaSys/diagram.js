@@ -60,6 +60,8 @@ var settings = {
         textAlign: 'center',                          // Used to change alignment of free text.
         key_type: 'normal'                            // Defult key type for a class.
     },
+
+    darkMode: false,
 };
 
 var globalObjectID = 0;
@@ -488,6 +490,8 @@ function keyDownHandler(e) {
           align(event, 'bottom');
     } else if (shiftIsClicked && key == leftArrow) {
           align(event, 'left');
+    } else if (shiftIsClicked && key == nKey){
+        toggleDarkMode();
     }
 }
 
@@ -1848,6 +1852,13 @@ function drawGrid() {
     var zoomGridSize = gridSize * zoomValue;
     var counter = 0;
 
+    if(settings.darkMode){
+        ctx.save();
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+    }
+
     for(var i = 0; i < Math.max(canvas.width, canvas.height) / zoomGridSize + Math.max(Math.abs(origoOffsetX), Math.abs(origoOffsetY)); i++){
         setLineColor(counter);
         counter++;
@@ -1872,9 +1883,9 @@ function drawGrid() {
 
 function setLineColor(counter){
     if(counter % 5 == 0){
-        ctx.strokeStyle = "rgb(208, 208, 220)";
+        ctx.strokeStyle = settings.darkMode ? "rgb(80, 80, 80)" : "rgb(208, 208, 220)";
     } else {
-        ctx.strokeStyle = "rgb(238, 238, 250)";
+        ctx.strokeStyle = settings.darkMode ? "rgb(40, 40, 40)" : "rgb(238, 238, 250)";
     }
 }
 
@@ -1978,6 +1989,15 @@ function resetSerialNumbers(){
         UML: 0,
         Text: 0,
     }
+}
+
+function toggleDarkMode(){
+    if(settings.darkMode){
+        settings.darkMode = false;
+    } else {
+        settings.darkMode = true;
+    }
+    updateGraphics();
 }
 
 // the purpose is not very clear
