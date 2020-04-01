@@ -97,6 +97,14 @@
 							echo "      </a>";
 							echo "    </div>";
 							echo "</td>";
+
+							echo "<td class='Downlad all files' style='display: inline-block;'>";
+							echo "    <div class='Downlad all files'>";
+              				echo "      <a id='downloadBTN' title='Download all content in a zip file' value='Download' href='accessed.php?courseid=".$_SESSION['courseid']."&coursevers=".$_SESSION['coursevers']."' >";
+              				echo "        <img class='navButt' src='../Shared/icons/Diskett.svg'>";
+							echo "      </a>";
+							echo "    </div>";
+							echo "</td>";
 					}
 			}
 	
