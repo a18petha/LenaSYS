@@ -16,11 +16,10 @@
 		$cid				= $_SESSION['courseid'];
 		$vers 			= $_SESSION['coursevers'];
 		echo "cid: " . $cid . ";vers: " . $vers;
-		$courseName	=	'hey';
 		$pathToVersionIndependence = '/courses/' . $cid . '/versionIndependence/';
 		$pathToActiveVersionOfCourse = '/courses/' . $cid . '/' . $vers. '/';
 		echo "pat1: "	.	$pathToVersionIndependence	.	"path2: "	. $pathToActiveVersionOfCourse;
-		$filename   =   'course:_' . $courseName . '_All_files.zip';
+		$filename   =   "courseID-". $cid ."_version-". $vers. "_All_files.zip";
 
 		
   
@@ -67,12 +66,10 @@
 			header('Content-Type: application/zip');
 			//header("Content-Transfer-Encoding: Binary");
 			header('Content-Length: ' . filesize($filename));
-			header('Content-Disposition: attachment; filename="'.$filename.'"');
-			//while (ob_get_level()){
-			//	ob_end_clean();
-			//}
+			header("Content-Disposition: attachment; filename=$filename");
+			
 			readfile($zip);
-			//exit;
+			exit;
 
 		}
 		 
