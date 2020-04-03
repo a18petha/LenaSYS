@@ -11,48 +11,71 @@
 
 		pdoConnect(); // Connect to database and start session
 		
+	
 		// Get real path for our folder
 		$cid				= $_SESSION['courseid'];
-		$vers 			= $_SESSION('coursevers');
+		$vers 			= $_SESSION['coursevers'];
+		echo "cid: " . $cid . ";vers: " . $vers;
 		$courseName	=	'hey';
-		$pathToVersionIndependence = "courses/" . $cid . "/versionIndependence/";
-		$pathToActiveVersionOfCourse = "courses/" . $cid . "/" . $vers . "/";
-		$filename   =   'course/' . $courseName . '/All/files.zip';
+		$pathToVersionIndependence = '/courses/' . $cid . '/versionIndependence/';
+		$pathToActiveVersionOfCourse = '/courses/' . $cid . '/' . $vers. '/';
+		echo "pat1: "	.	$pathToVersionIndependence	.	"path2: "	. $pathToActiveVersionOfCourse;
+		$filename   =   'course:_' . $courseName . '_All_files.zip';
 
-		// Enter the name of directory 
-		$pathdir = $pathToVersionIndependence;  
+		
   
 		// Enter the name to creating zipped directory 
 		$zipcreated = $filename; 
-  
 		// Create new zip class 
 		$zip = new ZipArchive; 
    
 		if($zip -> open($zipcreated, ZipArchive::CREATE ) === TRUE) { 
-      
-    // Store the path into the variable 
-    $dir = opendir($pathdir); 
-       
-    while($file = readdir($dir)) { 
-        if(is_file($pathdir.$file)) { 
-            $zip -> addFile($pathdir.$file, $file); 
-        } 
-		} 
-		
-		// Enter the name of directory 2
-		$pathdir = $pathToActiveVersionOfCourse;  
+			chdir('../');
+			$currcvd = getcwd();
 
-		// Store the path into the variable 
-		$dir = opendir($pathdir); 
+			
+			// Enter the name of directory 
+			$pathdir = $currcvd.$pathToVersionIndependence;  
 
-		while($file = readdir($dir)) { 
-			if(is_file($pathdir.$file)) { 
-					$zip -> addFile($pathdir.$file, $file); 
-			} 
-	} 
 
-    $zip ->close(); 
-} 
+			// Store the path into the variable 
+			if ($dir = opendir($pathdir)){ 
+				while(false !== $file = readdir($dir)) { 
+					if($file != "." && $file	!=	".."	&&	!is_dir($pathdir."/".$file)) { 
+							$zip -> addFile($pathdir.$file, $file); 
+					} 
+				}
+				closedir($dir);
+			}
+
+			// Enter the name of directory 2
+			$pathdir = $currcvd.$pathToActiveVersionOfCourse;  
+			
+			// Store the path into the variable 
+			if($dir = opendir($pathdir)){ 
+				while(false !== $file = readdir($dir)) { 
+					if($file != "." && $file	!=	".."	&&	!is_dir($pathdir."/".$file)) { 
+							$zip -> addFile($pathdir.$file, $file); 
+					} 
+				} 
+				closedir($dir);
+			}	
+
+			$zip ->close(); 
+			
+			//header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
+			header('Content-Type: application/zip');
+			//header("Content-Transfer-Encoding: Binary");
+			header('Content-Length: ' . filesize($filename));
+			header('Content-Disposition: attachment; filename="'.$filename.'"');
+			//while (ob_get_level()){
+			//	ob_end_clean();
+			//}
+			readfile($zip);
+			//exit;
+
+		}
+		 
 		
 		?>
 <html>
