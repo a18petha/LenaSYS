@@ -31,7 +31,8 @@ pdoConnect();
     <?php
         include '../Shared/loginbox.php';
     ?>
-	<!-- content START -->
+    <!-- content START -->
+
     <div id="content">
         <div id='searchBarMobile' style='margin-bottom:15px;'>
             <input id='searchinputMobile' type='text' name='search' placeholder='Search..' onkeyup='searchterm=document.getElementById("searchinputMobile").value;searchKeyUp(event);fileLink.reRender();document.getElementById("searchinput").value=document.getElementById("searchinputMobile").value;'/>
@@ -65,6 +66,10 @@ pdoConnect();
                     <input type="radio" id="links-sort" name="sortKind" value="Links" onclick="count=0;searchterm='kind::link';searchKeyUp(event);fileLink.renderTable();"/>
                     <label for="links-sort" name="sortLinks" style='white-space:nowrap'>Links</label>
                 </div>
+                 <div style='white-space:nowrap'>
+                    <input type="radio" id="dummyEmptyFile-sort" name="sortKind" value="Dummy File" onclick="count=0;searchterm='kind::dummyfile';searchKeyUp(event);fileLink.renderTable();"/>
+                    <label for="dummyEmptyFile-sort" name="sortDummyFile" style='white-space:nowrap'>Dummy files</label>
+                </div>
             </div>
         </div>
 		<div id="fileLink" style='width:100%;margin-bottom: 30px;'></div>
@@ -74,14 +79,17 @@ pdoConnect();
     <div id='addFile' class='loginBoxContainer' style='display:none;'>
         <div class='loginBox' style='width:464px; overflow-y: visible'>
             <div class='loginBoxheader' style='cursor:default;'>
-                <h3 class="fileHeadline" id="mFileHeadline">Add Course Local File</h3>
+                <h3 class="fileHeadline" id="eFileHeadline">Add Dummy Empty File</h3>
                 <h3 class="fileHeadline" id="gFileHeadline">Add Global File</h3>
+                <h3 class="fileHeadline" id="mFileHeadline">Add Course Local File</h3>
                 <h3 class="fileHeadline" id="lFileHeadline">Add Version Local File</h3>
                 <h3 class="linkPopUp">Add Link</h3>
                 <div class='cursorPointer' onclick='closeAddFile();'>x</div>
             </div>
+
             <form enctype="multipart/form-data" action="filereceive.php" onsubmit="return validateForm()" method="POST">
-                <div>
+              <div class="addNewFile">
+                    <div>
                     <input type='hidden' id='cid' name='cid' value='Toddler'/>
                     <input type='hidden' id='coursevers' name='coursevers' value='Toddler'/>
                     <input type='hidden' id='kind' name='kind' value='Toddler'/>
@@ -102,6 +110,23 @@ pdoConnect();
                 <div id='uploadbuttonname'>
                     <input class='submit-button fileed-submit-button' type="submit" onclick="uploadFile(fileKind);"/>
                 </div>
+
+              </div>
+
+                <div id="createNewEmptyFile" style="display: none;">
+                    
+                    <label for="newEmptyFile">File Name</label>
+                    <input type="text" id="newEmptyFile" name="newEmptyFile" placeholder="File name....">
+                    
+                    <div>
+                        <label for="newEmptyFileType">File Type</label>
+                        <input type="text" id="newEmptyFileType" name="newEmptyFileType" placeholder="File type.....">
+                    </div>
+
+                    <button>Create</button>
+
+                </div>
+
                 <div style='display:none;' id='errormessage'></div>
             </form>
 
@@ -191,11 +216,20 @@ pdoConnect();
 <div class="fixed-action-button" id="fabButton">
     <a class="btn-floating fab-btn-lg noselect" id="fabBtn">+</a>
     <ol class="fab-btn-list" style="margin: 0; padding: 0; display: none;" reversed>
-				<li onclick="showFilePopUp('GFILE');" >
-					<a id="gFabBtn" class="btn-floating fab-btn-sm scale-transition scale-out" data-tooltip='Add Global File'>
-							<img id="gFabBtnImg" class="fab-icon" src="../Shared/icons/global-icon.svg">
-					</a>
-				</li>
+				
+        <li onclick="showFilePopUp('EFILE');">
+                <a id="emptyFabBtn" class="btn-floating fab-btn-sm scale-transition scale-out" data-tooltip='Add Dummy Empty File'>
+                        <img id="emptyFabBtnImg" class="fab-icon" src="../Shared/icons/.....">
+                </a>
+        </li>
+
+        <li onclick="showFilePopUp('GFILE');" >
+			<a id="gFabBtn" class="btn-floating fab-btn-sm scale-transition scale-out" data-tooltip='Add Global File'>
+					<img id="gFabBtnImg" class="fab-icon" src="../Shared/icons/global-icon.svg">
+			</a>
+		</li>
+
+
       	<li  onclick="showFilePopUp('LFILE');" >
 					<a id="lFabBtn" class="btn-floating fab-btn-sm scale-transition scale-out" data-tooltip='Add Version Local File'>
 							<img id="lFabBtnImg" class="fab-icon" src="../Shared/icons/version_local-icon.svg">
