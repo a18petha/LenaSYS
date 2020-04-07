@@ -87,48 +87,52 @@ pdoConnect();
                 <div class='cursorPointer' onclick='closeAddFile();'>x</div>
             </div>
 
-            <form enctype="multipart/form-data" action="filereceive.php" onsubmit="return validateForm()" method="POST">
-              <div class="addNewFile">
-                    <div>
-                    <input type='hidden' id='cid' name='cid' value='Toddler'/>
-                    <input type='hidden' id='coursevers' name='coursevers' value='Toddler'/>
-                    <input type='hidden' id='kind' name='kind' value='Toddler'/>
-                    <div class='inputwrapper filePopUp'>
-                        <span>Upload File:</span>
-                        <input name="uploadedfile[]" id="uploadedfile" type="file" multiple="multiple"/>
-                        <div class="fileUploadInfo">
-                            <h1>Allowed Files</h1>
-                            <p>PDF, HTML, PHP, MD, TXT, JS, JPG, PNG</p>
+            <div   class="addNewFile">
+                <form enctype="multipart/form-data" action="filereceive.php" onsubmit="return validateForm()" method="POST">
+                
+                        <div>
+                        <input type='hidden' id='cid' name='cid' value='Toddler'/>
+                        <input type='hidden' id='coursevers' name='coursevers' value='Toddler'/>
+                        <input type='hidden' id='kind' name='kind' value='Toddler'/>
+                        <div class='inputwrapper filePopUp'>
+                            <span>Upload File:</span>
+                            <input name="uploadedfile[]" id="uploadedfile" type="file" multiple="multiple"/>
+                            <div class="fileUploadInfo">
+                                <h1>Allowed Files</h1>
+                                <p>PDF, HTML, PHP, MD, TXT, JS, JPG, PNG</p>
+                            </div>
+                        </div>
+                        <div class='inputwrapper linkPopUp'>
+                            <span>URL:</span>
+                            <input style="width:380px" id="uploadedlink" class="textinput" name="link"
+                                   placeholder="https://facebook.com" type="text"/>
                         </div>
                     </div>
-                    <div class='inputwrapper linkPopUp'>
-                        <span>URL:</span>
-                        <input style="width:380px" id="uploadedlink" class="textinput" name="link"
-                               placeholder="https://facebook.com" type="text"/>
-                    </div>
-                </div>
-                <div id='uploadbuttonname'>
-                    <input class='submit-button fileed-submit-button' type="submit" onclick="uploadFile(fileKind);"/>
-                </div>
-
-              </div>
-
-                <div id="createNewEmptyFile" style="display: none;">
-                    
-                    <label for="newEmptyFile">File Name</label>
-                    <input type="text" id="newEmptyFile" name="newEmptyFile" placeholder="File name....">
-                    
-                    <div>
-                        <label for="newEmptyFileType">File Type</label>
-                        <input type="text" id="newEmptyFileType" name="newEmptyFileType" placeholder="File type.....">
+                    <div id='uploadbuttonname'>
+                        <input class='submit-button fileed-submit-button' type="submit" onclick="uploadFile(fileKind);"/>
                     </div>
 
-                    <button>Create</button>
+                    <div style='display:none;' id='errormessage'></div>
+                </form>
 
-                </div>
+            </div>
 
-                <div style='display:none;' id='errormessage'></div>
-            </form>
+            <div id="createNewEmptyFile" style="display: none;">
+                
+             <!--<form action="fileedservice.php" method="POST">-->
+                <form action="filereceive.php" method="POST">
+                <label for="newEmptyFile">File name and type e.g greger.txt</label>
+                <input type="text" id="newEmptyFile" name="newEmptyFile" placeholder="greger.txt">
+                
+                <!--<div>
+                    <label for="newEmptyFileType">File Type</label>
+                    <input type="text" id="newEmptyFileType" name="newEmptyFileType" placeholder="File type.....">
+                </div>-->
+
+                <input type="submit" name="createNewEmptyFile" value="Create">
+             </form>
+
+            </div>
 
         </div>
     </div>

@@ -856,7 +856,7 @@ div .navButt:hover {
   border-radius: 4px;
   box-sizing: border-box;
 }
-#createNewEmptyFile button {
+#createNewEmptyFile input[type="submit"]{
   width: 100%;
   background-color: var(--color-primary);
   color: white;
