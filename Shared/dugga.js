@@ -1158,45 +1158,36 @@ function refreshUserSession(){
 // Timeout function, gives a prompt if the session is about to expire, which is 45 minutes
 //----------------------------------------------------------------------------------
 function sessionExpireMessage() {
-
 	if(document.cookie.indexOf('sessionEndTime=expireC') > -1){
 		var intervalId = setInterval(function() {
-		checkIfExpired();
+			checkIfExpired();
 		}, 2000);
 	}
-
 	function checkIfExpired() {
-
-			if (document.cookie.indexOf('sessionEndTime=expireC') == -1){
-				$(".expiremessagebox").css("display","block");
-
-				clearInterval(intervalId);
-			}
-
+		if (document.cookie.indexOf('sessionEndTime=expireC') == -1){
+			$(".expiremessagebox").css("display","block");
+			clearInterval(intervalId);
 		}
 	}
+}
 
 //----------------------------------------------------------------------------------
 // Gives an alert when user is timed out, 1 hour(when the session ends)
 // check every 5 seconds
 //----------------------------------------------------------------------------------
 function sessionExpireLogOut() {
-
 	if(document.cookie.indexOf('sessionEndTimeLogOut=expireC') > -1){
 		var intervalId = setInterval(function() {
 			checkIfExpired();
 		}, 2000);
 	}
-
 	function checkIfExpired() {
-
-			if (document.cookie.indexOf('sessionEndTimeLogOut=expireC') == -1){
-				$(".expiremessagebox").css("display","none");
-				$(".endsessionmessagebox").css("display","block");
-				processLogout();
-				clearInterval(intervalId);
-			}
-
+		if (document.cookie.indexOf('sessionEndTimeLogOut=expireC') == -1){
+			$(".expiremessagebox").css("display","none");
+			$(".endsessionmessagebox").css("display","block");
+			processLogout();
+			clearInterval(intervalId);
+		}
 	}
 }
 
