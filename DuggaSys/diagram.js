@@ -4095,12 +4095,14 @@ function loadFormIntoElement(element, dir) {
                 document.getElementById('nametext').value = names;
                 setSelectedOption('object_type', properties.key_type);
                 setSelectedOption('fillColor', properties.fillColor);
+              console.log(properties.fillColor);
                 setSelectedOption('font', properties.font);
                 setSelectedOption('fontColor', properties.fontColor);
                 setSelectedOption('TextSize', properties.sizeOftext);
                 setSelectedOption('LineColor', properties.strokeColor);
             } else if(globalAppearanceValue == 0 && lastSelected.kind == kind.path) {
                 setSelectedOption('figureFillColor', properties.fillColor);
+              console.log(properties.fillColor);
                 document.getElementById('figureOpacity').value = (properties.opacity * 100);
                 setSelectedOption('LineColor', properties.strokeColor);
             } else {
@@ -4384,7 +4386,9 @@ function changeObjectAppearance(object_type) {
             selected_objects[i].lineDirection = document.getElementById('line_direction').value;
         } else if (selected_objects[i].kind == kind.path) {
             selected_objects[i].fillColor = document.getElementById('figureFillColor').value;
+            selected_objects[i].properties['fillColor'] = document.getElementById('figureFillColor').value;
             selected_objects[i].opacity = document.getElementById('figureOpacity').value / 100;
+            selected_objects[i].properties['opacity'] = document.getElementById('figureOpacity').value / 100;
             selected_objects[i].properties['strokeColor'] = document.getElementById('LineColor').value;
         } else if (selected_objects[i].symbolkind == symbolKind.text) {
             selected_objects[i].textLines = [];
