@@ -5667,6 +5667,7 @@ textarea#filecont {
     visibility: visible;
     background-color:var(--color-primary);
     display: flex;
+    border-radius: 3px;;
   }
 
   .course{
@@ -5702,7 +5703,10 @@ textarea#filecont {
     margin: 5px;
     display: inline-table;
   }
-
+  .mobile-view .course-dropdown-div {
+    margin:2px;
+  }
+  
   header {
     /*overflow: hidden;*/
     color: var(--color-text-header);
