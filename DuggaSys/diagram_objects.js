@@ -25,7 +25,7 @@ function Symbol(kindOfSymbol) {
     this.middleDivider;             // Middle divider Point
     this.centerPoint;               // centerPoint
     this.cardinality = [
-      {"value": null, "isCorrectSide": null, "symbolKind": null, "axis": null, "parentBox": null}
+      {"value": null, "isCorrectSide": null, "symbolKind": null, "axis": null, "parentBox": null, "id": null}
     ];
     this.lineDirection;
     this.recursiveLineExtent = 40;  // Distance out from the entity that recursive lines go
@@ -1427,11 +1427,11 @@ function Symbol(kindOfSymbol) {
             }
             else if(this.cardinality[0].isCorrectSide) {
                 this.moveCardinality(x1, y1, x2, y2, "CorrectSide");
-                ctx.fillText(this.cardinality[0].value, this.cardinality[0].x, this.cardinality[0].y);
+                ctx.fillText(this.cardinality[0].value, this.cardinality[0].x, this.cardinality[0].y, this.cardinality[0].id = globalObjectID++);
             }
             else {
                 this.moveCardinality(x1, y1, x2, y2, "IncorrectSide");
-                ctx.fillText(this.cardinality[0].value, this.cardinality[0].x, this.cardinality[0].y);
+                ctx.fillText(this.cardinality[0].value, this.cardinality[0].x, this.cardinality[0].y, this.cardinality[0].id = globalObjectID++);
             }
         }
 
