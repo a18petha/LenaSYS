@@ -97,9 +97,18 @@
 							echo "      </a>";
 							echo "    </div>";
 							echo "</td>";
+							
+							//Adds the download files button to the toolbar
+							echo "<td class='Downlad all files' style='display: inline-block;'>";
+							echo "    <div class='Downlad all files'>";
+							echo "      <a id='downloadBTN' title='Download all content in a zip file' target='_blank' value='Download' href='downloadzip.php?courseid=".$_SESSION['courseid']."&coursevers=".$_SESSION['coursevers']."' >";
+							echo "        <img class='navButt' src='../Shared/icons/Diskett.svg'>";
+							echo "      </a>";
+							echo "    </div>";
+							echo "</td>";
 					}
 			}
-	
+							
 			// Sort dialog - accessed / resulted /fileed
       if($requestedService=="accessed.php" || $requestedService=="resulted.php" ||$requestedService=="fileed.php" ){
 					echo "<td id='searchBar' class='navButt'>";
