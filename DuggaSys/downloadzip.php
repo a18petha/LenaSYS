@@ -10,7 +10,9 @@ include_once	"../Shared/sessions.php";
 session_start();
 
 pdoConnect(); // Connect to database and start session
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Get real path for our folder
 $cid	= $_SESSION['courseid'];
